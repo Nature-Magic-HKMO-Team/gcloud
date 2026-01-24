@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "cli": "^1.0.1",
+    "shopify": "^3.89.0"
+  },
+  "devDependencies": {
+    "@shopify/cli": "^3.89.0"
+  }
+}
