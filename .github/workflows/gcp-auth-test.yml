@@ -1,0 +1,30 @@
+name: Test GCP Authentication
+
+# 允許我們手動觸發此工作流程
+on:
+  workflow_dispatch:
+
+jobs:
+  test-gcp-auth:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+
+      - name: 'Authenticate to Google Cloud'
+        id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: 'Test gcloud command'
+        run: |
+          echo "✅ Successfully authenticated as:"
+          gcloud auth list
+          echo "------------------------------------"
+          echo "✅ Describing project cs-poc-9hquprnpc0sqjs0y0tup9dh:"
+          gcloud projects describe cs-poc-9hquprnpc0sqjs0y0tup9dh
